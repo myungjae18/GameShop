@@ -18,11 +18,11 @@
 		where member_id=#{member.member_id}
 	</select>
 	
-	<select id="select" parameterType="int" resultMap="cartMap">
-		<include refid="sql_select"/>
-		where game_id=#{game.game_id}
+	<select id="select" parameterType="Cart" resultMap="cartMap">
+		<include refid="sql_select"/>		
+			where game_id=#{game.game_id} and member_id=#{member.member_id}
 	</select>
-	
+		
 	<insert id="insert" parameterType="int">
 		insert into cart(cart_id, member_id, game_id)
 		values(seq_cart.nextval, #{member.member_id}, #{game.game_id})

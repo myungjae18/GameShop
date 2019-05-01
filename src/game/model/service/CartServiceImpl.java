@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import game.common.exception.DataNotFoundException;
 import game.common.exception.RegistFailException;
 import game.model.domain.Cart;
 import game.model.repository.CartDAO;
@@ -26,7 +25,7 @@ public class CartServiceImpl implements CartService {
 		}
 	}
 
-	public Cart select(int game_id) {
-		return cartDAO.select(game_id);
+	public Cart select(Cart cart) {
+		return cartDAO.select(cart);
 	}
 }

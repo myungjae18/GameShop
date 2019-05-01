@@ -1,6 +1,8 @@
 package game.model.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class MybatisCartDAO implements CartDAO {
 		return sessionTemplate.insert("Cart.insert", cart);
 	}
 
-	public Cart select(int game_id) {
-		return sessionTemplate.selectOne("Cart.select", game_id);
+	public Cart select(Cart cart) {
+		return sessionTemplate.selectOne("Cart.select", cart);
 	}
 }

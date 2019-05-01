@@ -123,8 +123,17 @@ public class RestGameController {
 		return categoryService.selectAll();
 	}
 	
-	@RequestMapping(value="/rest/client/pay/cart/game/{game_id}", method=RequestMethod.GET)
-	public Cart checkCart(@PathVariable("game_id") int game_id) {
-		return cartService.select(game_id);
+	@RequestMapping(value="/rest/client/pay/cart/game", method=RequestMethod.GET)
+	public Cart checkCart(@RequestParam("game_id") int game_id, @RequestParam("member_id") int member_id) {
+		Game game=new Game();
+		Member member=new Member();
+		Cart cart=new Cart();
+		
+		game.setGame_id(game_id);
+		member.setMember_id(member_id);
+		cart.setGame(game);
+		cart.setMember(member);
+		
+		return cartService.select(cart);
 	}
 }

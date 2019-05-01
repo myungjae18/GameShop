@@ -7,5 +7,5 @@ import game.model.domain.Cart;
 public interface CartService {
 	public List selectAll(int member_id);
 	public void insert(Cart cart);
-	public Cart select(int game_id);
+	public Cart select(Cart cart);
 }

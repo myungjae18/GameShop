@@ -66,6 +66,7 @@ function gameInfo(){
 		}
 	});
 }
+
 function getImage(){
 	$.ajax({	     
 		url : "/rest/client/game/images",
@@ -122,19 +123,27 @@ function recommend(type){
 		alert("리뷰가 등록되었습니다");
 	}
 
-	function loginCheck(){
+	function loginCheck(type){
 		<%if(member==null){%> 
 			alert("로그인이 필요한 서비스입니다");
 			return;
 		<%}else{%>
-			checkCart();
+			if(type=="cart"){
+				checkCart();
+			}else if(type=="pay")
+				buyThis();	
 		<%}%>
 	}
 
+	<%if(member!=null){%>
 	function checkCart(){
 		$.ajax({
-			url:"/rest/client/pay/cart/game/<%=game_id%>",
+			url:"/rest/client/pay/cart/game",
 			type:"get",
+			data:{
+				"game_id":<%=game_id%>,
+				"member_id":<%=member.getMember_id()%>
+			},
 			success:function(result){
 				if(result!=""){
 					alert("이미 장바구니에 추가한 게임입니다");
@@ -145,7 +154,9 @@ function recommend(type){
 			}
 		});
 	}
-
+	<%}%>
+	
+	
 	function registCart(game_id){
 		$("form").attr({
 			action:"/client/pay/cart/regist",
@@ -153,6 +164,10 @@ function recommend(type){
 		});
 		$("form").submit();
 		alert("장바구니에 상품이 등록되었습니다");
+	}
+
+	function buyThis(){
+		alert("나구매버튼");
 	}
 </script>
 </head>
@@ -192,9 +207,8 @@ function recommend(type){
 							<h3 style="color: white" id="grade"></h3>
 							<!-- <div class="addtocart-bar" style="width: 30%"> -->
 							<form>
-								<input type="button" value="장바구니에 추가" onclick="loginCheck()">&nbsp&nbsp
-								<input type="button" value="구매하기"
-									style="background-color: orange">
+								<input type="button" value="장바구니에 추가" onclick="loginCheck('cart')">&nbsp&nbsp
+								<input type="button" value="구매하기" onclick="loginCheck('pay')" style="background-color: orange">
 							</form>
 							<!-- </div> -->
 						</div>

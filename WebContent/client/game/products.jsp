@@ -109,10 +109,15 @@ function loginCheck(game_id){
 	<%}%>
 }
 
+<%if(member!=null){%>
 function checkCart(game_id){
 	$.ajax({
-		url:"/rest/client/pay/cart/game/"+game_id,
+		url:"/rest/client/pay/cart/game",
 		type:"get",
+		data:{
+			"game_id":game_id,
+			"member_id":<%=member.getMember_id()%>
+		},
 		success:function(result){
 			if(result!=""){
 				alert("이미 장바구니에 추가한 게임입니다");
@@ -123,6 +128,7 @@ function checkCart(game_id){
 		}
 	});
 }
+<%}%>
 
 function registCart(game_id){
 	$("input[name='game_id']").val(game_id);
